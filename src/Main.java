@@ -15,6 +15,9 @@ import creational.prototype.cache.ShapeCache;
 import creational.prototype.shapes.Circle;
 import creational.prototype.shapes.Rectangle;
 import creational.prototype.shapes.Shape;
+import creational.singleton.ThreadOne;
+import creational.singleton.ThreadThree;
+import creational.singleton.ThreadTwo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,5 +112,15 @@ public class Main {
                 System.out.println(" and they are NOT identical");
             }
         }
+
+        //SINGLETON
+        Thread thread1 = new Thread(new ThreadOne());
+        Thread thread2 = new Thread(new ThreadTwo());
+        thread1.start();
+        thread2.start();
+        Thread thread3 = new Thread(new ThreadThree());
+        Thread thread4 = new Thread(new ThreadThree());
+        thread3.start();
+        thread4.start();
     }
 }

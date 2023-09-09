@@ -11,6 +11,13 @@ import creational.builder.director.Director;
 import creational.factory_method.factory.Logistics;
 import creational.factory_method.factory.RoadLogistics;
 import creational.factory_method.factory.SeaLogistics;
+import creational.prototype.cache.ShapeCache;
+import creational.prototype.shapes.Circle;
+import creational.prototype.shapes.Rectangle;
+import creational.prototype.shapes.Shape;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -46,5 +53,61 @@ public class Main {
         director.constructSUV(manualBuilder);
         Manual manual = manualBuilder.build();
         System.out.println("Car manual: " + manual);
+
+        //PROTOTYPE
+        List<Shape> shapes = new ArrayList<>();
+        List<Shape> shapesCopy = new ArrayList<>();
+        Circle circle = new Circle();
+        circle.x = 10;
+        circle.y = 20;
+        circle.radius = 15;
+        circle.color = "RED";
+        shapes.add(circle);
+        shapes.add(circle.clone());
+        Rectangle rectangle = new Rectangle();
+        rectangle.x = 10;
+        rectangle.y = 20;
+        rectangle.width = 10;
+        rectangle.height = 20;
+        rectangle.color = "BLUE";
+        shapes.add(rectangle);
+
+        for (Shape shape : shapes) {
+            shapesCopy.add(shape.clone());
+        }
+        for (int i = 0; i < shapes.size(); i++) {
+            Shape shape = shapes.get(i);
+            Shape copy = shapesCopy.get(i);
+            if (shape == copy) {
+                System.out.println(i + ": Shape objects are the same");
+                continue;
+            }
+            System.out.println(i + ": Shapes are different objects");
+            if (copy.equals(shape)) {
+                System.out.println(i + ": But they are identical");
+            } else {
+                System.out.println(i + ": And they are not identical");
+            }
+        }
+
+        ShapeCache cache = new ShapeCache();
+        Shape shape1 = cache.get("Small red circle");
+        Shape shape2 = cache.get("Big blue rectangle");
+        Shape shape3 = cache.get("Big blue rectangle");
+        if (shape1 != shape2 && !shape1.equals(shape2)) {
+            System.out.println("Small red circle != Big blue rectangle");
+        } else {
+            System.out.println("Small red circle == Big blue rectangle");
+        }
+        if (shape2 == shape3) {
+            System.out.println("Rectangle objects are the same");
+        } else {
+            System.out.print("Rectangles are different objects");
+            if (shape3.equals(shape2)) {
+                System.out.println(" but they are identical");
+            } else {
+                System.out.println(" and they are NOT identical");
+            }
+        }
     }
 }

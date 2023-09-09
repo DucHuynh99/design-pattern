@@ -18,6 +18,10 @@ import creational.prototype.shapes.Shape;
 import creational.singleton.ThreadOne;
 import creational.singleton.ThreadThree;
 import creational.singleton.ThreadTwo;
+import structural.adaptor.adaptor.SquarePegAdaptor;
+import structural.adaptor.round.RoundHole;
+import structural.adaptor.round.RoundPeg;
+import structural.adaptor.square.SquarePeg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,5 +126,17 @@ public class Main {
         Thread thread4 = new Thread(new ThreadThree());
         thread3.start();
         thread4.start();
+
+        //ADAPTOR
+        RoundHole hole = new RoundHole(5);
+        RoundPeg rPeg = new RoundPeg(5);
+        System.out.println("Round peg R5 fits round hole R5: " + hole.fits(rPeg));
+        SquarePeg smallSqPeg = new SquarePeg(2);
+        SquarePeg largeSqPeg = new SquarePeg(20);
+        SquarePegAdaptor smallAdaptor = new SquarePegAdaptor(smallSqPeg);
+        SquarePegAdaptor largeAdaptor = new SquarePegAdaptor(largeSqPeg);
+        System.out.println("Square peg W2 fits round hole R5: " + hole.fits(smallAdaptor));
+        System.out.println("Square peg W20 fits round hole R5: " + hole.fits(largeAdaptor));
+
     }
 }

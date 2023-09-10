@@ -26,6 +26,8 @@ import structural.bridge.devices.Radio;
 import structural.bridge.devices.TV;
 import structural.bridge.remotes.AdvancedRemote;
 import structural.bridge.remotes.BasicRemote;
+import structural.composite.Box;
+import structural.composite.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,6 +159,21 @@ public class Main {
         advancedRemote.volumeUp();
         advancedRemote.mute();
         tv.printStatus();
+
+        //COMPOSITE
+        Product product1 = new Product(1),
+                product2 = new Product(2),
+                product3 = new Product(3);
+
+        Box smallBox = new Box();
+        smallBox.add(product1);
+        smallBox.add(product2);
+
+        Box bigBox = new Box();
+        bigBox.add(smallBox);
+        bigBox.add(product3);
+
+        System.out.println("Total price: " + bigBox.getPrice());
 
     }
 }

@@ -22,6 +22,10 @@ import structural.adaptor.adaptor.SquarePegAdaptor;
 import structural.adaptor.round.RoundHole;
 import structural.adaptor.round.RoundPeg;
 import structural.adaptor.square.SquarePeg;
+import structural.bridge.devices.Radio;
+import structural.bridge.devices.TV;
+import structural.bridge.remotes.AdvancedRemote;
+import structural.bridge.remotes.BasicRemote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +141,22 @@ public class Main {
         SquarePegAdaptor largeAdaptor = new SquarePegAdaptor(largeSqPeg);
         System.out.println("Square peg W2 fits round hole R5: " + hole.fits(smallAdaptor));
         System.out.println("Square peg W20 fits round hole R5: " + hole.fits(largeAdaptor));
+
+        //BRIDGE
+        Radio radio = new Radio();
+        BasicRemote basicRemote = new BasicRemote(radio);
+        basicRemote.power();
+        basicRemote.channelDown();
+        basicRemote.volumeDown();
+        radio.printStatus();
+
+        TV tv = new TV();
+        AdvancedRemote advancedRemote = new AdvancedRemote(tv);
+        advancedRemote.power();
+        advancedRemote.channelUp();
+        advancedRemote.volumeUp();
+        advancedRemote.mute();
+        tv.printStatus();
 
     }
 }

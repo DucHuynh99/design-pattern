@@ -34,6 +34,7 @@ import structural.decorator.decorators.CompressionDecorator;
 import structural.decorator.decorators.DataSourceDecorator;
 import structural.decorator.decorators.EncryptionDecorator;
 import structural.facade.VideoConversionFacade;
+import structural.flyweight.forest.Forest;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -196,5 +197,14 @@ public class Main {
         VideoConversionFacade converter = new VideoConversionFacade();
         File output = converter.convertVideo("input.mp4", "ogg");
         System.out.println(output);
+
+        //FLYWEIGHT
+        Forest forest = new Forest();
+        forest.plantTree(1,2, "Apple", "Green");
+        forest.plantTree(2,3, "Bamboo", "Green");
+        forest.plantTree(3,4, "Apple", "Green");
+        forest.plantTree(4,5, "Bamboo", "Green");
+        forest.plantTree(5,6, "Coconut", "Green");
+        forest.print();
     }
 }

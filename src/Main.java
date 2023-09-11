@@ -33,7 +33,9 @@ import structural.decorator.FileDataSource;
 import structural.decorator.decorators.CompressionDecorator;
 import structural.decorator.decorators.DataSourceDecorator;
 import structural.decorator.decorators.EncryptionDecorator;
+import structural.facade.VideoConversionFacade;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,5 +191,10 @@ public class Main {
         System.out.println("Input: " + inputString);
         System.out.println("Encoded: " + plain.read());
         System.out.println("Decoded: " + encoded.read());
+
+        //FACADE
+        VideoConversionFacade converter = new VideoConversionFacade();
+        File output = converter.convertVideo("input.mp4", "ogg");
+        System.out.println(output);
     }
 }

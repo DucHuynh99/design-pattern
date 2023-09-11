@@ -28,6 +28,11 @@ import structural.bridge.remotes.AdvancedRemote;
 import structural.bridge.remotes.BasicRemote;
 import structural.composite.Box;
 import structural.composite.Product;
+import structural.decorator.DataSource;
+import structural.decorator.FileDataSource;
+import structural.decorator.decorators.CompressionDecorator;
+import structural.decorator.decorators.DataSourceDecorator;
+import structural.decorator.decorators.EncryptionDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,5 +180,14 @@ public class Main {
 
         System.out.println("Total price: " + bigBox.getPrice());
 
+        //DECORATOR
+        String inputString = "Huynh Huu Duc";
+        DataSource plain = new FileDataSource("decorator.txt");
+        DataSourceDecorator encoded = new CompressionDecorator(new EncryptionDecorator(plain));
+        encoded.write(inputString);
+
+        System.out.println("Input: " + inputString);
+        System.out.println("Encoded: " + plain.read());
+        System.out.println("Decoded: " + encoded.read());
     }
 }

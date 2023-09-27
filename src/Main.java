@@ -35,6 +35,9 @@ import structural.decorator.decorators.DataSourceDecorator;
 import structural.decorator.decorators.EncryptionDecorator;
 import structural.facade.VideoConversionFacade;
 import structural.flyweight.forest.Forest;
+import structural.proxy.downloader.YoutubeDownloader;
+import structural.proxy.library.ThirdPartyYoutubeClass;
+import structural.proxy.proxy.YoutubeCacheProxy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -206,5 +209,12 @@ public class Main {
         forest.plantTree(4,5, "Bamboo", "Green");
         forest.plantTree(5,6, "Coconut", "Green");
         forest.print();
+
+        //PROXY
+        YoutubeDownloader naiveDownloader = new YoutubeDownloader(new ThirdPartyYoutubeClass());
+        YoutubeDownloader smartDownloader = new YoutubeDownloader(new YoutubeCacheProxy());
+        System.out.println("Speed test result (lower is better):");
+        System.out.println("Without proxy: " + naiveDownloader.speedTest() + "ms");
+        System.out.println("   With proxy: " + smartDownloader.speedTest() + "ms");
     }
 }

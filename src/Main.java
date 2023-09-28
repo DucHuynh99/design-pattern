@@ -1,3 +1,8 @@
+import behavioral.chain_of_responsibility.middileware.Middleware;
+import behavioral.chain_of_responsibility.middileware.RoleCheckMiddleware;
+import behavioral.chain_of_responsibility.middileware.ThrottlingMiddleware;
+import behavioral.chain_of_responsibility.middileware.UserExistsMiddleware;
+import behavioral.chain_of_responsibility.server.Server;
 import creational.abstract_factory.chair.Chair;
 import creational.abstract_factory.factories.FurnitureFactory;
 import creational.abstract_factory.factories.ModernFurnitureFactory;
@@ -216,5 +221,16 @@ public class Main {
         System.out.println("Speed test result (lower is better):");
         System.out.println("Without proxy: " + naiveDownloader.speedTest() + "ms");
         System.out.println("   With proxy: " + smartDownloader.speedTest() + "ms");
+
+        //CHAIN OF RESPONSIBILITY
+        Server server = new Server();
+        server.register("admin@example.com", "admin_pw");
+        server.register("user@example.com", "user_pw");
+        server.setMiddleware(Middleware.link(new ThrottlingMiddleware(2),
+                new UserExistsMiddleware(server),
+                new RoleCheckMiddleware()));
+        System.out.println(server.login("admin@example.com", "user_pw"));
+        System.out.println(server.login("admin@example.com", "admin_pw"));
+        System.out.println(server.login("user1@example.com", "user_pw"));
     }
 }

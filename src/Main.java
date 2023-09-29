@@ -3,6 +3,10 @@ import behavioral.chain_of_responsibility.middileware.RoleCheckMiddleware;
 import behavioral.chain_of_responsibility.middileware.ThrottlingMiddleware;
 import behavioral.chain_of_responsibility.middileware.UserExistsMiddleware;
 import behavioral.chain_of_responsibility.server.Server;
+import behavioral.command.commands.CopyCommand;
+import behavioral.command.commands.CutCommand;
+import behavioral.command.commands.PasteCommand;
+import behavioral.command.editor.Editor;
 import creational.abstract_factory.chair.Chair;
 import creational.abstract_factory.factories.FurnitureFactory;
 import creational.abstract_factory.factories.ModernFurnitureFactory;
@@ -232,5 +236,18 @@ public class Main {
         System.out.println(server.login("admin@example.com", "user_pw"));
         System.out.println(server.login("admin@example.com", "admin_pw"));
         System.out.println(server.login("user1@example.com", "user_pw"));
+
+        //COMMAND
+        Editor editor = new Editor();
+        editor.textField = "ABC";
+        editor.render();
+        editor.executeCommand(new CopyCommand(editor));
+        editor.render();
+        editor.executeCommand(new CutCommand(editor));
+        editor.render();
+        editor.executeCommand(new PasteCommand(editor));
+        editor.render();
+        editor.undo();
+        editor.render();
     }
 }
